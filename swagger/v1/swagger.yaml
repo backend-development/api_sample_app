@@ -6,32 +6,41 @@ info:
   description: This is the first version of my API
 paths:
   "/users.json":
-    post:
-      summary: Register a new user
-      consumes:
+    get:
+      summary: list all the users
+      produces:
+      - abpplication/json
+      responses:
+        '200':
+          description: successful
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                email:
+                  type: string
+              required:
+              - id
+              - name
+              - email
+  "/users/{id}.json":
+    get:
+      summary: show user
+      produces:
       - application/json
       parameters:
-      - name: user
-        in: body
-        schema:
-          type: object
-          properties:
-            name:
-              type: string
-            email:
-              type: string
-            password:
-              type: string
-            password_confirmation:
-              type: string
-          required:
-          - name
-          - email
-          - password
-          - password_confirmation
+      - name: id
+        in: path
+        type: string
+        required: true
       responses:
-        '201':
-          description: User created
+        '200':
+          description: successful
           schema:
             type: object
             properties:
@@ -41,3 +50,7 @@ paths:
                 type: string
               email:
                 type: string
+            required:
+            - id
+            - name
+            - email
