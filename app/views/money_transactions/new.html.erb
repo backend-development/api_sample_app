@@ -1,0 +1,32 @@
+<h1>New Money Transaction</h1>
+
+<%= mdl_form_for(@money_transaction) do |form| %>
+  <% if @money_transaction.errors.any? %>
+    <div id="error_explanation">
+      <p><%= pluralize(@money_transaction.errors.count, "error") %> prohibited this money_transaction from being saved:</p>
+
+      <ul>
+        <% @money_transaction.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= mdl_select('money_transaction[creditor_id]', User.all.collect {|u| [u.name, u.id]}, @money_transaction&.creditor_id) %>
+
+  <br>
+
+  <%= mdl_select('money_transaction[debitor_id]', User.all.collect {|u| [u.name, u.id]}, @money_transaction&.debitor_id) %>
+
+  <br>
+
+  <%= form.text_field :amount %>
+  <br>
+
+
+
+  <%= form.submit  class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent", value: "Save"  %>
+
+<% end %>
+

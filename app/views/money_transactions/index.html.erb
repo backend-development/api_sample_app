@@ -1,0 +1,35 @@
+
+
+<h1>Money Transactions</h1>
+
+<table  class="mdl-data-table mdl-js-data-table">
+  <thead>
+    <tr>
+      <th>Creditor</th>
+      <th></th>      
+      <th>Debitor</th>
+      <th>Amount</th>
+      <th>Paid at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @money_transactions.each do |money_transaction| %>
+      <tr>
+        <td><%= money_transaction.creditor %></td>
+        <td> <i class="material-icons">arrow_right_alt</i> </td>
+        <td><%= money_transaction.debitor %></td>
+        <td><%= number_to_currency(money_transaction.amount, unit: '€') %></td>
+        <td><%= money_transaction.paid_at %></td>
+        <td><%= link_to 'Show', money_transaction %></td>
+        <td><%= link_to 'Edit', edit_money_transaction_path(money_transaction) %></td>
+        <td><%= button_to 'Destroy', money_transaction, method: :delete %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Money Transaction', new_money_transaction_path %>

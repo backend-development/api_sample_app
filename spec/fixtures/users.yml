@@ -1,0 +1,12 @@
+# all passwords are 12345678
+# created by  BCrypt::Password.create('12345678')
+
+mando:
+  name: mando
+  email: mando@bountyhunters.com
+  password_digest: $2a$12$LEdzOGjBkXfQbWrTQ2fK5O0eGomJ0Kny2K2lcQvpVKTd3myu6y2Gm
+
+greef:
+  name: greef
+  email: greef@bountyhunters.com
+  password_digest: $2a$12$LEdzOGjBkXfQbWrTQ2fK5O0eGomJ0Kny2K2lcQvpVKTd3myu6y2Gm

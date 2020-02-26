@@ -1,0 +1,27 @@
+
+<p>
+  <strong>Creditor:</strong>
+  <%= @money_transaction.creditor %>
+</p>
+
+<p>
+  <strong>Debitor:</strong>
+  <%= @money_transaction.debitor %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= number_to_currency(@money_transaction.amount, unit: '€') %>
+</p>
+
+<p>
+  <% if @money_transaction.paid_at.nil? %>
+    <strong>Not paid yet</strong>
+  <% else %>
+  <strong>Paid at:</strong>
+  <%=l @money_transaction.paid_at %>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_money_transaction_path(@money_transaction) %> |
+<%= link_to 'Back', money_transactions_path %>

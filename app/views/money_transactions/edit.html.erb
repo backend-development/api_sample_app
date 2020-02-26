@@ -1,0 +1,33 @@
+<h1>Settle this Dept</h1>
+
+<p>
+  <%= @money_transaction.creditor %> 
+  lent <%= number_to_currency(@money_transaction.amount, unit: '€') %>
+  to <%= @money_transaction.debitor %>
+</p>
+
+<p>Was this debt settled?  If yes, enter the date it was settled on. Leave the date empty if it 
+was not settled yet.</p>
+
+<%= mdl_form_for(@money_transaction) do |form| %>
+  <% if @money_transaction.errors.any? %>
+    <div id="error_explanation">
+      <p><%= pluralize(@money_transaction.errors.count, "error") %> prohibited this money_transaction from being saved:</p>
+
+      <ul>
+        <% @money_transaction.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+  <%= form.date_field :paid_at, value: Date.today %>
+  <br>
+
+  <%= form.submit  class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent", value: "Save"  %>
+
+<% end %>
+

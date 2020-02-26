@@ -1,0 +1,15 @@
+<div class="mdl-textfield mdl-js-textfield getmdl-select">
+    <input type="text" value="<%= visible_value %>" class="mdl-textfield__input" id="<%= model_and_name %>" readonly>
+    <input type="hidden" value="<%= value %>" name="<%= model_and_name %>">
+    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+    <label for="<%= model_and_name %>" class="mdl-textfield__label"><%= label %></label>
+    <ul for="<%= model_and_name %>" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+      <% options.each do |name, id| %>
+        <li class="mdl-menu__item" data-val="<%= id %>"><%= name %></li>
+      <% end %>
+    </ul>
+</div>
+
+
+
+

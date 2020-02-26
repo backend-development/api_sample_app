@@ -1,0 +1,23 @@
+<h1>Editing User</h1>
+
+<%= mdl_form_for(@user) do |form| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <p><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</p>
+
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <%= form.text_field :email %> <br>
+
+  <%= form.submit class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" %>
+
+<% end %>
+
+
