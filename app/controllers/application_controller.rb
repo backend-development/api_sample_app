@@ -1,14 +1,16 @@
 class ApplicationController < ActionController::Base
+  # TODO: only verify csrf_token when authentication is done without cookies
+  skip_before_action :verify_authenticity_token, if: :json_request?
+
   before_action :coerce_json
 
-	def coerce_json
-		# Rails converts the following header:
-		#
-		#	Accept: application/json, text/javascript, */*; q=0.01
-		#
-		# into text/html. Force it back to json.
-		if request.headers[ 'HTTP_ACCEPT' ] =~ /^\s*application\/json/
-			request.format = 'json'
-		end
-	end
+  def coerce_json
+    if json_request?
+      request.format = :json
+    end
+  end
+
+  def json_request?
+    request.headers[ 'HTTP_ACCEPT' ] =~ /^\s*application\/json/
+  end
 end
