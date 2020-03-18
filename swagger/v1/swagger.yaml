@@ -5,6 +5,77 @@ info:
   version: v1
   description: This is the first version of my API
 paths:
+  "/api/v1/users":
+    get:
+      summary: list all the users
+      produces:
+      - abpplication/json
+      responses:
+        '200':
+          description: successful
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    type:
+                      type: string
+                    attributes:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        email:
+                          type: string
+                      required:
+                      - name
+                      - email
+                  required:
+                  - id
+                  - type
+                  - attributes
+  "/api/v1/users/{id}":
+    get:
+      summary: show user
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        type: string
+        required: true
+      responses:
+        '200':
+          description: successful
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  type:
+                    type: string
+                  attributes:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      email:
+                        type: string
+                    required:
+                    - name
+                    - email
+                required:
+                - id
+                - type
+                - attributes
   "/users.json":
     get:
       summary: list all the users

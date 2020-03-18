@@ -1,1 +1,3 @@
-json.array! @money_transactions, partial: "money_transactions/money_transaction", as: :money_transaction
+# frozen_string_literal: true
+
+json.array! @money_transactions, partial: 'money_transactions/money_transaction', as: :money_transaction
