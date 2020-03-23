@@ -8,6 +8,8 @@ paths:
   "/api/v1/users":
     get:
       summary: list all the users
+      tags:
+      - User
       produces:
       - abpplication/json
       responses:
@@ -41,6 +43,8 @@ paths:
                   - attributes
     post:
       summary: Creates a user
+      tags:
+      - User
       consumes:
       - application/json
       produces:
@@ -95,6 +99,8 @@ paths:
   "/api/v1/users/{id}":
     get:
       summary: show user
+      tags:
+      - User
       produces:
       - application/json
       parameters:
@@ -131,6 +137,8 @@ paths:
                 - attributes
     patch:
       summary: Updates a users data
+      tags:
+      - User
       consumes:
       - application/json
       produces:
@@ -167,6 +175,8 @@ paths:
                   email: twix@skywalker.net
     delete:
       summary: Deletes a users
+      tags:
+      - User
       consumes:
       - application/json
       produces:
@@ -182,6 +192,8 @@ paths:
   "/users.json":
     get:
       summary: list all the users
+      tags:
+      - Legacy
       produces:
       - abpplication/json
       responses:
@@ -205,6 +217,8 @@ paths:
   "/users/{id}.json":
     get:
       summary: show user
+      tags:
+      - Legacy
       produces:
       - application/json
       parameters:

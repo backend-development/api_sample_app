@@ -9,6 +9,7 @@ RSpec.describe 'Stand Alone API', type: :request do
   before { @user = users(:mando) }
   path '/api/v1/users' do
     get 'list all the users' do
+      tags 'User'
       produces 'abpplication/json'
 
       response(200, 'successful') do
@@ -44,6 +45,8 @@ RSpec.describe 'Stand Alone API', type: :request do
     #     --data "{\"data\":{\"type\":\"user\",\"attributes\":{\"name\":\"Ember\",\"email\":\"ember@hier.com\",\"password\":\"geheim\"}}}"
 
     post 'Creates a user' do
+      tags 'User'
+
       consumes 'application/json'
       produces 'application/json'
       parameter name: :user,
@@ -88,6 +91,8 @@ RSpec.describe 'Stand Alone API', type: :request do
 
   path '/api/v1/users/{id}' do
     get 'show user' do
+      tags 'User'
+
       produces 'application/json'
       parameter name: 'id', in: :path, type: :string
 
@@ -120,6 +125,8 @@ RSpec.describe 'Stand Alone API', type: :request do
       end
     end
     patch 'Updates a users data' do
+      tags 'User'
+
       consumes 'application/json'
       produces 'application/json'
       parameter name: 'id', in: :path, type: :string
@@ -154,6 +161,8 @@ RSpec.describe 'Stand Alone API', type: :request do
       end
     end
     delete 'Deletes a users' do
+      tags 'User'
+
       consumes 'application/json'
       produces 'application/json'
       parameter name: 'id', in: :path, type: :string
