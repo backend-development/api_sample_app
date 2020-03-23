@@ -38,6 +38,7 @@ RSpec.describe 'Stand Alone API', type: :request do
       end
     end
 
+    # echtes json:api
     #  curl -X POST "http://localhost:3000/api/v1/users/" \
     #  -H "Accept: application/vnd.api+json" -H 'Content-Type:application/vnd.api+json'  \
     #     --data "{\"data\":{\"type\":\"user\",\"attributes\":{\"name\":\"Ember\",\"email\":\"ember@hier.com\",\"password\":\"geheim\"}}}"
@@ -112,6 +113,41 @@ RSpec.describe 'Stand Alone API', type: :request do
         end
 
         run_test!
+      end
+    end
+    patch 'Updates a users data' do
+      consumes 'application/json'
+      produces 'application/json'
+      parameter name: 'id', in: :path, type: :string
+      parameter name: :user,
+                in: :body,
+                schema: {
+                  type: :object,
+                  properties: {
+                    id: { type: :string },
+                    user: {
+                      type: :object,
+                      properties: {
+                        name: { type: :string },
+                        email: { type: :string },
+                        password: { type: :string }
+                      }
+                    }
+                  }
+                }
+
+      response '200', 'user updated' do
+        let(:id) do
+          u = User.create!(name: 'Raider', email: 'raider@skywalker.net', password: '1234567', password_confirmation: '1234567')
+          u.id
+        end
+        let(:user) do
+          { user: { name: 'Twix', email: 'twix@skywalker.net' } }
+        end
+        run_test!
+        # after do |example|
+        #   example.metadata[:response][:examples] = { 'application/json' => JSON.parse(response.body, symbolize_names: true) }
+        # end
       end
     end
   end
