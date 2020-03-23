@@ -59,6 +59,10 @@ class Api::V1::UsersController < Api::V1::BaseController
   # POST /users
   def create
     @user = User.new(user_params)
+    if user_params.nil?
+      render_api_error('parsing input', 422)
+      return
+    end
     @user.password_confirmation = user_params[:password] if user_params[:password].present?
     Rails.logger.warn("creating #{@user.attributes}")
     if @user.save
@@ -94,7 +98,12 @@ class Api::V1::UsersController < Api::V1::BaseController
     @user = User.find(params[:id])
   end
 
+  # Parse JSON-Api data:
+  # {"data"=>{"type"=>"user",
+  #           "attributes"=>{"name"=>"Good", "email"=>"good@hier.com", "password"=>"[FILTERED]"}}
   def user_params
-    params.require(:user).permit(:email, :name, :password)
+    Rails.logger.warn(params)
+    p = params.require(:data).permit(:type, attributes: %i[name email password])
+    p[:attributes] if p[:type] == 'user'
   end
 end

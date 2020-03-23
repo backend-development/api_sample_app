@@ -55,21 +55,44 @@ RSpec.describe 'Stand Alone API', type: :request do
                   schema: {
                     type: :object,
                     properties: {
-                      user: {
+                      data: {
                         type: :object,
                         properties: {
-                          name: { type: :string },
-                          email: { type: :string },
-                          password: { type: :string }
-                        },
-                        required: %w[name email password]
+                          type: { type: :string },
+                          attributes: {
+                            type: :object,
+                            properties: {
+                              name: { type: :string },
+                              email: { type: :string },
+                              password: { type: :string }
+                            },
+                            required: %w[name email password]
+                          }
+                        }
                       }
                     }
                   }
+        # Rails Style
+        # parameter name: :user,
+        #           in: :body,
+        #           schema: {
+        #             type: :object,
+        #             properties: {
+        #               user: {
+        #                 type: :object,
+        #                 properties: {
+        #                   name: { type: :string },
+        #                   email: { type: :string },
+        #                   password: { type: :string }
+        #                 },
+        #                 required: %w[name email password]
+        #               }
+        #             }
+        #           }
 
         response '201', 'user created' do
           let(:user) do
-            { user: { name: 'Good', email: 'good@hier.com', password: 'asecret' } }
+            { data: { type: 'user', attributes: { name: 'Good', email: 'good@hier.com', password: 'asecret' } } }
           end
           run_test!
           after do |example|
@@ -80,7 +103,7 @@ RSpec.describe 'Stand Alone API', type: :request do
         response '422', "password can't be blank, name can't exist, e-mail can't exist" do
           let(:user) do
             u = User.first
-            { user: { name: u.name, email: u.email } }
+            { data: { type: 'user', attributes: { name: u.name, email: u.email } } }
           end
           run_test!
           after do |example|
@@ -136,24 +159,55 @@ RSpec.describe 'Stand Alone API', type: :request do
                   schema: {
                     type: :object,
                     properties: {
-                      user: {
+                      data: {
                         type: :object,
                         properties: {
-                          name: { type: :string },
-                          email: { type: :string },
-                          password: { type: :string }
+                          type: { type: :string },
+                          id: { type: :string },
+                          attributes: {
+                            type: :object,
+                            properties: {
+                              name: { type: :string },
+                              email: { type: :string },
+                              password: { type: :string }
+                            },
+                            required: %w[name email password]
+                          }
                         }
                       }
                     }
                   }
+        # # rails style
+        # parameter name: :user,
+        #           in: :body,
+        #           schema: {
+        #             type: :object,
+        #             properties: {
+        #               data: {
+        #                 type: :object,
+        #                 properties: {
+        #                   type: { type: :string },
+        #                   attributes: {
+        #                     type: :object,
+        #                     properties: {
+        #                       name: { type: :string },
+        #                       email: { type: :string },
+        #                       password: { type: :string }
+        #                     },
+        #                     required: %w[name email password]
+        #                   }
+        #                 }
+        #               }
+        #             }
+        #           }
 
-        response '200', 'user updated' do
+        response '200', 'user updated: Raider heisst jetzt Twix' do
           let(:id) do
             u = User.create!(name: 'Raider', email: 'raider@skywalker.net', password: '1234567', password_confirmation: '1234567')
             u.id
           end
           let(:user) do
-            { user: { name: 'Twix', email: 'twix@skywalker.net' } }
+            { data: { type: 'user', attributes: { name: 'Twix', email: 'twix@skywalker.net' } } }
           end
           run_test!
           after do |example|
