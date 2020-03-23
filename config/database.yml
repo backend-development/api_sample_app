@@ -7,6 +7,13 @@
 development:
   adapter: postgresql
   encoding: unicode
+  database: iou_development
+  pool: 5
+  timeout: 5000
+
+dockerized_development:
+  adapter: postgresql
+  encoding: unicode
   url: postgresql://iou:password@localhost:15432/iou
   pool: 5
   timeout: 5000
@@ -15,6 +22,13 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
+  adapter: postgresql
+  encoding: unicode
+  database: iou_test
+  pool: 5
+  timeout: 5000
+
+dockerized_test:
   adapter: postgresql
   encoding: unicode
   url: postgresql://iou:password@localhost:25432/iou
