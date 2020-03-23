@@ -10,6 +10,7 @@ gem 'sassc-rails'
 
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'fast_jsonapi', '~> 1.6.0', git: 'https://github.com/fast-jsonapi/fast_jsonapi'
 gem 'jbuilder', '~> 2.7'
 gem 'mdl_form', github: 'bjelline/rails-mdl-form'
 gem 'pg'
