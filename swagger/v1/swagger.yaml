@@ -122,8 +122,6 @@ paths:
         schema:
           type: object
           properties:
-            id:
-              type: string
             user:
               type: object
               properties:

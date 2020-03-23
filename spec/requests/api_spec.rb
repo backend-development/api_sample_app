@@ -124,7 +124,6 @@ RSpec.describe 'Stand Alone API', type: :request do
                 schema: {
                   type: :object,
                   properties: {
-                    id: { type: :string },
                     user: {
                       type: :object,
                       properties: {
