@@ -19,7 +19,3 @@ module Iou
     # the framework and any gems in your application.
   end
 end
-
-RSpec.configure do |config|
-  config.swagger_dry_run = false
-end

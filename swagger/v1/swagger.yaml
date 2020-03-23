@@ -124,31 +124,8 @@ paths:
       responses:
         '201':
           description: user created
-          examples:
-            application/json:
-              data:
-                id: '986702027'
-                type: user
-                attributes:
-                  name: Good
-                  email: good@hier.com
         '422':
           description: password can't be blank, name can't exist, e-mail can't exist
-          examples:
-            application/json:
-              errors:
-              - status: 422
-                source:
-                  pointer: "/user/password"
-                detail: can't be blank
-              - status: 422
-                source:
-                  pointer: "/user/email"
-                detail: has already been taken
-              - status: 422
-                source:
-                  pointer: "/user/name"
-                detail: has already been taken
   "/api/v1/users/{id}":
     get:
       summary: show user
@@ -218,14 +195,6 @@ paths:
       responses:
         '200':
           description: user updated
-          examples:
-            application/json:
-              data:
-                id: '986702029'
-                type: user
-                attributes:
-                  name: Twix
-                  email: twix@skywalker.net
     delete:
       summary: Deletes a users
       tags:
