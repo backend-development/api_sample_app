@@ -73,11 +73,15 @@ RSpec.describe 'Stand Alone API', type: :request do
         end
       end
 
-      response '422', 'invalid request' do
+      response '422', "password can't be blank, name can't exist, e-mail can't exist" do
         let(:user) do
-          { user: { name: 'Bad', email: 'bad@hier.com' } }
+          u = User.first
+          { user: { name: u.name, email: u.email } }
         end
         run_test!
+        after do |example|
+          example.metadata[:response][:examples] = { 'application/json' => JSON.parse(response.body, symbolize_names: true) }
+        end
       end
     end
   end
@@ -144,9 +148,25 @@ RSpec.describe 'Stand Alone API', type: :request do
           { user: { name: 'Twix', email: 'twix@skywalker.net' } }
         end
         run_test!
-        # after do |example|
-        #   example.metadata[:response][:examples] = { 'application/json' => JSON.parse(response.body, symbolize_names: true) }
-        # end
+        after do |example|
+          example.metadata[:response][:examples] = { 'application/json' => JSON.parse(response.body, symbolize_names: true) }
+        end
+      end
+    end
+    delete 'Deletes a users' do
+      consumes 'application/json'
+      produces 'application/json'
+      parameter name: 'id', in: :path, type: :string
+
+      response '204', 'user updated' do
+        let(:id) do
+          u = User.create!(name: 'Raider', email: 'raider@skywalker.net', password: '1234567', password_confirmation: '1234567')
+          u.id
+        end
+        let(:user) do
+          { user: { name: 'Twix', email: 'twix@skywalker.net' } }
+        end
+        run_test!
       end
     end
   end

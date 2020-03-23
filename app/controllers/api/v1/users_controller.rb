@@ -1,6 +1,51 @@
 # frozen_string_literal: true
 
 class Api::V1::UsersController < Api::V1::BaseController
+  around_action :handle_errors
+
+  def handle_errors
+    yield
+  rescue ActiveRecord::InvalidForeignKey => e
+    render_api_error(e.message, 422)
+  rescue ActiveRecord::RecordNotFound => e
+    render_api_error(e.message, 404)
+  rescue ActiveRecord::RecordInvalid => e
+    render_api_error(e.record.errors.full_messages, 422)
+    # rescue JWT::ExpiredSignature => e
+    #   render_api_error(e.message, 401)
+    # rescue InvalidTokenError => e
+    #   render_api_error(e.message, 422)
+    # rescue MissingTokenError => e
+    #   render_api_error(e.message, 422)
+  end
+
+  def render_api_error(messages, code)
+    data = { errors: [] }
+    if messages.respond_to? :each
+      messages.each do |field, errors|
+        if errors.respond_to? :each
+          errors.each do |error_message|
+            data[:errors].push(
+              status: code,
+              source: { pointer: "/user/#{field}" },
+              detail: error_message
+            )
+          end
+        else
+          data[:errors].push(
+            status: code,
+            source: { pointer: "/user/#{field}" },
+            detail: errors
+          )
+        end
+      end
+    else
+      data[:errors].push(code: code, details: messages)
+    end
+
+    render json: data, status: code
+  end
+
   def index
     users = User.all
     render json: UserSerializer.new(users).serialized_json
@@ -19,7 +64,8 @@ class Api::V1::UsersController < Api::V1::BaseController
     if @user.save
       render status: 201, json: UserSerializer.new(@user).serialized_json
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render_api_error(@user.errors, 422)
+      # render json: @user.errors, status: :unprocessable_entity
     end
   end
 
@@ -29,8 +75,17 @@ class Api::V1::UsersController < Api::V1::BaseController
     if @user.update(user_params)
       render status: :ok, json: UserSerializer.new(@user).serialized_json
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render_api_error(@user.errors, 422)
+
+      render json: @user.errors, status: 422
     end
+  end
+
+  # DELETE /users/1
+  def destroy
+    set_user
+    @user.destroy
+    head :no_content
   end
 
   private
