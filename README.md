@@ -11,6 +11,17 @@ technically, it is a rails app with some react added.
 - https://ericlondon.com/2018/03/18/rails-5-api-and-react-frontend-jwt-token-authentication.html
 -
 
+## Getting started
+Make sure to have docker and docker-compose installed.
+
+```
+docker-compose up -d # start development, test postgres instances
+docker-compose down -v # stop postgres and remove volumes
+bundle exec rails db:migrate
+rails s
+```
+
+
 ## Images Used under cc:
 
 https://www.flickr.com/photos/zoliblog/3198088960

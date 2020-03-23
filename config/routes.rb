@@ -8,12 +8,5 @@ Rails.application.routes.draw do
   resources :users
   get 'static/help'
   get 'static/privacy'
-
-  namespace :api do
-    namespace :v1 do
-      resources :users, only: %i[index show create update destroy]
-    end
-  end
-
   root to: 'static#home'
 end

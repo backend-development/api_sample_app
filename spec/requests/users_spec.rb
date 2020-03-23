@@ -7,7 +7,6 @@ RSpec.describe 'Users API', type: :request do
   before { @user = users(:mando) }
   path '/users.json' do
     get 'list all the users' do
-      tags 'Legacy'
       produces 'abpplication/json'
 
       response(200, 'successful') do
@@ -29,7 +28,6 @@ RSpec.describe 'Users API', type: :request do
 
   path '/users/{id}.json' do
     get 'show user' do
-      tags 'Legacy'
       produces 'application/json'
       parameter name: 'id', in: :path, type: :string
 
