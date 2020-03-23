@@ -9,18 +9,20 @@ technically, it is a rails app with some react added.
 
 - https://github.com/rails/webpacker/blob/master/docs/css.md
 - https://ericlondon.com/2018/03/18/rails-5-api-and-react-frontend-jwt-token-authentication.html
--
 
-## Getting started
+
+## Using docker-compose for development
+
 Make sure to have docker and docker-compose installed.
 
 ```
+cp config/dockerized_database.yml config/database.yml
+docker-compose up -d # start development, test postgres instances
 docker-compose up -d # start development, test postgres instances
 docker-compose down -v # stop postgres and remove volumes
 bundle exec rails db:migrate
 rails s
 ```
-
 
 ## Images Used under cc:
 
