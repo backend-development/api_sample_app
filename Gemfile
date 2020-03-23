@@ -14,16 +14,17 @@ gem 'jbuilder', '~> 2.7'
 gem 'mdl_form', github: 'bjelline/rails-mdl-form'
 gem 'pg'
 gem 'puma', '~> 4.1'
+gem 'rspec-rails', '= 4.0.0.beta3'
 gem 'rswag-api'
+gem 'rswag-specs'
 gem 'rswag-ui'
+
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 4.0'
 gem 'webpacker-react'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'rspec-rails', '= 4.0.0.beta3'
-  gem 'rswag-specs'
 end
 
 group :development do
@@ -44,5 +45,4 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'rack-cors', '~> 1.1'
 
-
-gem "fast_jsonapi", "~> 1.5"
+gem 'fast_jsonapi', '~> 1.5'
