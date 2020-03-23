@@ -13,7 +13,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def create
     @user = User.new(user_params)
-    @user.password_confirmation = user_params[:password]
+    @user.password_confirmation = user_params[:password] if user_params[:password].present?
     Rails.logger.warn("creating #{@user.attributes}")
     if @user.save
       render status: 201, json: UserSerializer.new(@user).serialized_json
@@ -25,6 +25,6 @@ class Api::V1::UsersController < Api::V1::BaseController
   private
 
   def user_params
-    params.permit(:email, :name, :password)
+    params.require(:user).permit(:email, :name, :password)
   end
 end

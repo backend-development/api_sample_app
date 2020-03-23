@@ -50,16 +50,21 @@ RSpec.describe 'Stand Alone API', type: :request do
                 schema: {
                   type: :object,
                   properties: {
-                    name: { type: :string },
-                    email: { type: :string },
-                    password: { type: :string }
-                  },
-                  required: %w[name email password]
+                    user: {
+                      type: :object,
+                      properties: {
+                        name: { type: :string },
+                        email: { type: :string },
+                        password: { type: :string }
+                      },
+                      required: %w[name email password]
+                    }
+                  }
                 }
 
       response '201', 'user created' do
         let(:user) do
-          { name: 'Ember', email: 'ember@hier.com', password: 'asecret' }
+          { user: { name: 'Good', email: 'good@hier.com', password: 'asecret' } }
         end
         run_test!
         after do |example|
@@ -69,7 +74,7 @@ RSpec.describe 'Stand Alone API', type: :request do
 
       response '422', 'invalid request' do
         let(:user) do
-          { name: 'Ember', email: 'ember@hier.com' }
+          { user: { name: 'Bad', email: 'bad@hier.com' } }
         end
         run_test!
       end

@@ -51,16 +51,19 @@ paths:
         schema:
           type: object
           properties:
-            name:
-              type: string
-            email:
-              type: string
-            password:
-              type: string
-          required:
-          - name
-          - email
-          - password
+            user:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - name
+              - email
+              - password
       responses:
         '201':
           description: user created
