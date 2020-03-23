@@ -7,7 +7,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: iou_development
+  url: postgresql://iou:password@localhost:15432/iou
   pool: 5
   timeout: 5000
 
@@ -17,10 +17,9 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: iou_test
+  url: postgresql://iou:password@localhost:25432/iou
   pool: 5
   timeout: 5000
-
 
 production:
   url: <%= ENV["DATABASE_URL"] %>
