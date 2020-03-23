@@ -39,6 +39,33 @@ paths:
                   - id
                   - type
                   - attributes
+    post:
+      summary: Creates a user
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: user
+        in: body
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+            password:
+              type: string
+          required:
+          - name
+          - email
+          - password
+      responses:
+        '201':
+          description: user created
+        '422':
+          description: invalid request
   "/api/v1/users/{id}":
     get:
       summary: show user
