@@ -4,7 +4,225 @@ info:
   title: API V1
   version: v1
   description: This is the first version of my API
+securityDefinitions:
+  Bearer:
+    description: JWT for this API
+    type: apiKey
+    name: Authorization
+    in: header
 paths:
+  "/api/v1/users":
+    get:
+      summary: list all the users
+      tags:
+      - User
+      produces:
+      - abpplication/json
+      security:
+      - Bearer: {}
+      responses:
+        '200':
+          description: successful
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    type:
+                      type: string
+                    attributes:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        email:
+                          type: string
+                      required:
+                      - name
+                      - email
+                  required:
+                  - id
+                  - type
+                  - attributes
+        '422':
+          description: wrong token no data
+    post:
+      summary: Creates a user
+      tags:
+      - User
+      security:
+      - Bearer: {}
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: user
+        in: body
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                attributes:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    email:
+                      type: string
+                    password:
+                      type: string
+                  required:
+                  - name
+                  - email
+                  - password
+      responses:
+        '201':
+          description: user created
+          examples:
+            application/json:
+              data:
+                id: '986702026'
+                type: user
+                attributes:
+                  name: Good
+                  email: good@hier.com
+        '422':
+          description: password can't be blank, name can't exist, e-mail can't exist
+          examples:
+            application/json:
+              errors:
+              - status: 422
+                source:
+                  pointer: "/user/email"
+                detail: has already been taken
+              - status: 422
+                source:
+                  pointer: "/user/password"
+                detail: can't be blank
+              - status: 422
+                source:
+                  pointer: "/user/name"
+                detail: has already been taken
+  "/api/v1/users/{id}":
+    get:
+      summary: show user
+      tags:
+      - User
+      security:
+      - Bearer: {}
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        type: string
+        required: true
+      responses:
+        '200':
+          description: successful
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  type:
+                    type: string
+                  attributes:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      email:
+                        type: string
+                    required:
+                    - name
+                    - email
+                required:
+                - id
+                - type
+                - attributes
+    patch:
+      summary: Updates a users data
+      tags:
+      - User
+      security:
+      - Bearer: {}
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        type: string
+        required: true
+      - name: user
+        in: body
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                id:
+                  type: string
+                attributes:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    email:
+                      type: string
+                    password:
+                      type: string
+                  required:
+                  - name
+                  - email
+                  - password
+      responses:
+        '200':
+          description: 'user updated: Raider heisst jetzt Twix'
+          examples:
+            application/json:
+              data:
+                id: '986702028'
+                type: user
+                attributes:
+                  name: Twix
+                  email: raider@skywalker.net
+    delete:
+      summary: Deletes a users
+      tags:
+      - User
+      security:
+      - Bearer: {}
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        type: string
+        required: true
+      responses:
+        '204':
+          description: user updated
   "/users.json":
     get:
       summary: list all the users
@@ -94,8 +312,8 @@ paths:
             application/json:
               id: 507602454
               email: greef@bountyhunters.com
-              created_at: '2020-04-26T13:20:20.737Z'
-              updated_at: '2020-04-26T13:20:20.737Z'
+              created_at: '2020-04-26T14:03:34.440Z'
+              updated_at: '2020-04-26T14:03:34.440Z'
               name: greef
               jti: f4d270f8-3b36-404a-997d-023117046b73
         '401':
@@ -103,203 +321,3 @@ paths:
           examples:
             application/json:
               error: Invalid Email or password.
-  "/api/v1/users":
-    get:
-      summary: list all the users
-      tags:
-      - User
-      produces:
-      - abpplication/json
-      responses:
-        '200':
-          description: successful
-          schema:
-            type: object
-            properties:
-              data:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                    type:
-                      type: string
-                    attributes:
-                      type: object
-                      properties:
-                        name:
-                          type: string
-                        email:
-                          type: string
-                      required:
-                      - name
-                      - email
-                  required:
-                  - id
-                  - type
-                  - attributes
-    post:
-      summary: Creates a user
-      tags:
-      - User
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      parameters:
-      - name: user
-        in: body
-        schema:
-          type: object
-          properties:
-            data:
-              type: object
-              properties:
-                type:
-                  type: string
-                attributes:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    email:
-                      type: string
-                    password:
-                      type: string
-                  required:
-                  - name
-                  - email
-                  - password
-      responses:
-        '201':
-          description: user created
-          examples:
-            application/json:
-              data:
-                id: '986702027'
-                type: user
-                attributes:
-                  name: Good
-                  email: good@hier.com
-        '422':
-          description: password can't be blank, name can't exist, e-mail can't exist
-          examples:
-            application/json:
-              errors:
-              - status: 422
-                source:
-                  pointer: "/user/email"
-                detail: has already been taken
-              - status: 422
-                source:
-                  pointer: "/user/password"
-                detail: can't be blank
-              - status: 422
-                source:
-                  pointer: "/user/name"
-                detail: has already been taken
-  "/api/v1/users/{id}":
-    get:
-      summary: show user
-      tags:
-      - User
-      produces:
-      - application/json
-      parameters:
-      - name: id
-        in: path
-        type: string
-        required: true
-      responses:
-        '200':
-          description: successful
-          schema:
-            type: object
-            properties:
-              data:
-                type: object
-                properties:
-                  id:
-                    type: string
-                  type:
-                    type: string
-                  attributes:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                      email:
-                        type: string
-                    required:
-                    - name
-                    - email
-                required:
-                - id
-                - type
-                - attributes
-    patch:
-      summary: Updates a users data
-      tags:
-      - User
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      parameters:
-      - name: id
-        in: path
-        type: string
-        required: true
-      - name: user
-        in: body
-        schema:
-          type: object
-          properties:
-            data:
-              type: object
-              properties:
-                type:
-                  type: string
-                id:
-                  type: string
-                attributes:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    email:
-                      type: string
-                    password:
-                      type: string
-                  required:
-                  - name
-                  - email
-                  - password
-      responses:
-        '200':
-          description: 'user updated: Raider heisst jetzt Twix'
-          examples:
-            application/json:
-              data:
-                id: '986702029'
-                type: user
-                attributes:
-                  name: Twix
-                  email: raider@skywalker.net
-    delete:
-      summary: Deletes a users
-      tags:
-      - User
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      parameters:
-      - name: id
-        in: path
-        type: string
-        required: true
-      responses:
-        '204':
-          description: user updated

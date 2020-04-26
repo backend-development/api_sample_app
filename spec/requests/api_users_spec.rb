@@ -47,6 +47,13 @@ RSpec.describe 'Stand Alone API', type: :request do
                  }
           run_test!
         end
+        response '422', "wrong token no data" do
+          let(:"Authorization") { "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c" }          
+          run_test!
+          after do |example|
+            example.metadata[:response][:examples] = { 'application/json' => JSON.parse(response.body, symbolize_names: true) }
+          end
+        end        
       end
 
       # echtes json:api
