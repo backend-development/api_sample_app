@@ -40,12 +40,13 @@
             <% if user_signed_in? %>
               <%= link_to "Users", users_path, class: 'mdl-navigation__link' %>
               <%= link_to "Transactions", money_transactions_path, class: 'mdl-navigation__link' %>
-              <%= link_to "Logout", destroy_user_session_path, action: 'delete', class: 'mdl-navigation__link' %>
+              <%= link_to "Logout", logout_path, class: 'mdl-navigation__link' %>
             <% else %>
               <%= link_to "Register", new_user_registration_path, class: 'mdl-navigation__link' %>
               <%= link_to "Login", new_user_session_path, class: 'mdl-navigation__link' %>
             <% end %>
             <%= link_to "API Doc", rswag_ui_path, class: 'mdl-navigation__link' %>
+            <%= link_to "Gesendete Mail", '/letter_opener', class: 'mdl-navigation__link' %>
         </nav>
       </div>
       <main class="mdl-layout__content constrain">
