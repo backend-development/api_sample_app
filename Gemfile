@@ -10,6 +10,8 @@ gem 'sassc-rails'
 
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'devise'
+gem 'devise-jwt'
 gem 'fast_jsonapi', '~> 1.6.0', git: 'https://github.com/fast-jsonapi/fast_jsonapi'
 gem 'jbuilder', '~> 2.7'
 gem 'mdl_form', github: 'bjelline/rails-mdl-form'
@@ -44,4 +46,3 @@ end
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem "rack-cors", "~> 1.1"
-
