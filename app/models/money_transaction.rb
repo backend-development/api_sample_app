@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class MoneyTransaction < ApplicationRecord
-  before_action :authenticate_user!
-
   belongs_to :creditor, class_name: 'User'
   belongs_to :debitor, class_name: 'User'
 
