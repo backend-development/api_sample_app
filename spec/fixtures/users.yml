@@ -1,12 +1,16 @@
 # all passwords are 12345678
-# created by  BCrypt::Password.create('12345678')
+# created by devise
 
 mando:
   name: mando
   email: mando@bountyhunters.com
-  encrypted_password: $2a$12$LEdzOGjBkXfQbWrTQ2fK5O0eGomJ0Kny2K2lcQvpVKTd3myu6y2Gm
+  encrypted_password: $2a$11$wnSYGee.PvB4XfMABYm8U.YNHj7DPA8PR2zPiNsh3WhuBHGenSxeW
+  jti: 1bbe9051-51ff-413a-b30b-7b249a595be6
+  confirmed_at: 2000-01-01
 
 greef:
   name: greef
   email: greef@bountyhunters.com
-  encrypted_password: $2a$12$LEdzOGjBkXfQbWrTQ2fK5O0eGomJ0Kny2K2lcQvpVKTd3myu6y2Gm
+  encrypted_password: $2a$11$wnSYGee.PvB4XfMABYm8U.YNHj7DPA8PR2zPiNsh3WhuBHGenSxeW
+  jti: f4d270f8-3b36-404a-997d-023117046b73
+  confirmed_at: 2000-01-01

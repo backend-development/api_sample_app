@@ -4,6 +4,14 @@
 
 require 'swagger_helper'
 
+def token_for(user)
+  scope ||= Devise::Mapping.find_scope!(user)
+  token, payload = Warden::JWTAuth::UserEncoder.new.call(
+    user, scope, nil
+  )
+  token
+end
+
 RSpec.describe 'Stand Alone API', type: :request do
   describe 'Users' do
     fixtures :users
@@ -12,8 +20,9 @@ RSpec.describe 'Stand Alone API', type: :request do
       get 'list all the users' do
         tags 'User'
         produces 'abpplication/json'
-
+        security [Bearer: {}]
         response(200, 'successful') do
+          let(:"Authorization") { "Bearer #{token_for(@user)}" }          
           schema type: :object,
                  properties: {
                    data: {
@@ -47,7 +56,7 @@ RSpec.describe 'Stand Alone API', type: :request do
 
       post 'Creates a user' do
         tags 'User'
-
+        security [Bearer: {}]
         consumes 'application/json'
         produces 'application/json'
         parameter name: :user,
@@ -91,6 +100,7 @@ RSpec.describe 'Stand Alone API', type: :request do
         #           }
 
         response '201', 'user created' do
+          let(:"Authorization") { "Bearer #{token_for(@user)}" }          
           let(:user) do
             { data: { type: 'user', attributes: { name: 'Good', email: 'good@hier.com', password: 'asecret' } } }
           end
@@ -101,6 +111,7 @@ RSpec.describe 'Stand Alone API', type: :request do
         end
 
         response '422', "password can't be blank, name can't exist, e-mail can't exist" do
+          let(:"Authorization") { "Bearer #{token_for(@user)}" }          
           let(:user) do
             u = User.first
             { data: { type: 'user', attributes: { name: u.name, email: u.email } } }
@@ -116,11 +127,14 @@ RSpec.describe 'Stand Alone API', type: :request do
     path '/api/v1/users/{id}' do
       get 'show user' do
         tags 'User'
+        security [Bearer: {}]
 
         produces 'application/json'
         parameter name: 'id', in: :path, type: :string
 
         response 200, 'successful' do
+          let(:"Authorization") { "Bearer #{token_for(@user)}" }          
+
           schema type: :object,
                  properties: {
                    data: {
@@ -150,6 +164,7 @@ RSpec.describe 'Stand Alone API', type: :request do
       end
       patch 'Updates a users data' do
         tags 'User'
+        security [Bearer: {}]
 
         consumes 'application/json'
         produces 'application/json'
@@ -202,6 +217,8 @@ RSpec.describe 'Stand Alone API', type: :request do
         #           }
 
         response '200', 'user updated: Raider heisst jetzt Twix' do
+          let(:"Authorization") { "Bearer #{token_for(@user)}" }          
+
           let(:id) do
             u = User.create!(name: 'Raider', email: 'raider@skywalker.net', password: '1234567', password_confirmation: '1234567')
             u.id
@@ -217,12 +234,15 @@ RSpec.describe 'Stand Alone API', type: :request do
       end
       delete 'Deletes a users' do
         tags 'User'
+        security [Bearer: {}]
 
         consumes 'application/json'
         produces 'application/json'
         parameter name: 'id', in: :path, type: :string
 
         response '204', 'user updated' do
+          let(:"Authorization") { "Bearer #{token_for(@user)}" }          
+
           let(:id) do
             u = User.create!(name: 'Raider', email: 'raider@skywalker.net', password: '1234567', password_confirmation: '1234567')
             u.id

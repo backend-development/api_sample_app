@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::UsersController < Api::V1::BaseController
+  before_action :authenticate_user!
   around_action :handle_errors
 
   def handle_errors

@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-
-
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
 
-  mount LetterOpenerWeb::Engine, at: "/letter_opener" # in all environments!  
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' # in all environments!
 
   resources :money_transactions
 
@@ -15,8 +13,7 @@ Rails.application.routes.draw do
     get 'logout', to: 'devise/sessions#destroy'
   end
   resources :users
-  
-  
+
   get 'static/help'
   get 'static/privacy'
 
