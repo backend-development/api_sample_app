@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/bjelline/rails-mdl-form.git
-  revision: 7e07b1fd954078df5ca2eda564f77ad00ae1d680
+  revision: 9868da199dce4c888a9a06ba4e705d5c0daacb94
   specs:
-    mdl_form (0.1.7)
+    mdl_form (0.1.8)
 
 GIT
   remote: https://github.com/fast-jsonapi/fast_jsonapi
