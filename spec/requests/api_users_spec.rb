@@ -4,14 +4,6 @@
 
 require 'swagger_helper'
 
-def token_for(user)
-  scope ||= Devise::Mapping.find_scope!(user)
-  token, payload = Warden::JWTAuth::UserEncoder.new.call(
-    user, scope, nil
-  )
-  token
-end
-
 RSpec.describe 'Stand Alone API', type: :request do
   describe 'Users' do
     fixtures :users

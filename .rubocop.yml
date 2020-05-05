@@ -103,11 +103,6 @@ Lint/RaiseException:
 Lint/StructNewOverride:
   Enabled: true
 
-Style/ClassAndModuleChildren:
-  SupportedStyles:
-    - nested
-    - compact
-
 Style/ExponentialNotation:
   Enabled: true
 

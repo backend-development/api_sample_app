@@ -184,6 +184,83 @@ paths:
                 - type
                 - attributes
                 - relationships
+    patch:
+      summary: Updates a MoneyTransactions data
+      tags:
+      - MoneyTransaction
+      security:
+      - Bearer: {}
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        type: string
+        required: true
+      - name: money_transaction
+        in: body
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                id:
+                  type: string
+                attributes:
+                  type: object
+                  properties:
+                    amount:
+                      type: string
+                    paid_at:
+                      type: string
+                      format: date
+                    creditor_id:
+                      type: string
+                    debitor_id:
+                      type: string
+                  required: []
+      responses:
+        '200':
+          description: 'moneytransaction updated: bezahlt'
+          examples:
+            application/json:
+              data:
+                id: '980190964'
+                type: money_transaction
+                attributes:
+                  amount: '22.9'
+                relationships:
+                  creditor:
+                    data:
+                      id: '507602454'
+                      type: user
+                  debitor:
+                    data:
+                      id: '986702025'
+                      type: user
+    delete:
+      summary: Deletes a moneytransaction
+      tags:
+      - MoneyTransaction
+      security:
+      - Bearer: {}
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        type: string
+        required: true
+      responses:
+        '204':
+          description: moneytransaction deleted
   "/api/v1/users":
     get:
       summary: list all the users
@@ -488,8 +565,8 @@ paths:
             application/json:
               id: 507602454
               email: greef@bountyhunters.com
-              created_at: '2020-05-05T20:16:03.530Z'
-              updated_at: '2020-05-05T20:16:03.530Z'
+              created_at: '2020-05-05T20:47:17.558Z'
+              updated_at: '2020-05-05T20:47:17.558Z'
               name: greef
               jti: f4d270f8-3b36-404a-997d-023117046b73
         '401':

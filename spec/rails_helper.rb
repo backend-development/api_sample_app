@@ -65,3 +65,11 @@ RSpec.configure do |config|
 
   # config.include Devise::Test::ControllerHelpers, type: :controller
 end
+
+def token_for(user)
+  scope ||= Devise::Mapping.find_scope!(user)
+  token, _payload = Warden::JWTAuth::UserEncoder.new.call(
+    user, scope, nil
+  )
+  token
+end
