@@ -2,5 +2,7 @@
 
 class MoneyTransactionSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :name, :email
+  attributes :amount, :paid_at
+  belongs_to :creditor, record_type: :user, serializer: UserSerializer
+  belongs_to :debitor, record_type: :user, serializer: UserSerializer
 end

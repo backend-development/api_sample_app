@@ -13,49 +13,57 @@ def token_for(user)
 end
 
 RSpec.describe 'Stand Alone API', type: :request do
-  # describe 'MoneyTransaction' do
-  #   fixtures :users
-  #   fixtures :money_transactions
-  #   before { @user = users(:mando) }
-  #   path '/api/v1/money_transactions' do
-  #     get 'list all the MoneyTransaction' do
-  #       tags 'MoneyTransaction'
-  #       produces 'application/json'
-  #       security [Bearer: {}]
-  #       response(200, 'successful') do
-  #         let(:"Authorization") { "Bearer #{token_for(@user)}" }          
-  #         schema type: :object,
-  #                properties: {
-  #                  data: {
-  #                    type: :array,
-  #                    items: {
-  #                      type: :object,
-  #                      properties: {
-  #                        id: { type: :string },
-  #                        type: { type: :string },
-  #                        attributes: {
-  #                          type: :object,
-  #                          properties: {
-  #                            name: { type: :string },
-  #                            email: { type: :string }
-  #                          },
-  #                          required: %w[name email]
-  #                        }
-  #                      },
-  #                      required: %w[id type attributes]
-  #                    }
-  #                  }
-  #                }
-  #         run_test!
-  #       end
-  #       response '401', "wrong token no data" do
-  #         let(:"Authorization") { "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c" }          
-  #         run_test!
-  #         after do |example|
-  #           example.metadata[:response][:examples] = { 'application/json' => JSON.parse(response.body, symbolize_names: true) }
-  #         end
-  #       end        
-  #     end
+  describe 'MoneyTransaction' do
+    fixtures :users
+    fixtures :money_transactions
+    before { @user = users(:mando) }
+    path '/api/v1/money_transactions' do
+      get 'list all the MoneyTransaction' do
+        tags 'MoneyTransaction'
+        produces 'application/json'
+        security [Bearer: {}]
+        response(200, 'successful') do
+          let(:"Authorization") { "Bearer #{token_for(@user)}" }          
+          schema type: :object,
+                 properties: {
+                    data: {
+                      type: :array,
+                      items: {
+                        type: :object,
+                        properties: {
+                          id: { type: :string },
+                          type: { type: :string },
+                          attributes: {
+                            type: :object,
+                            properties: {
+                              amount: { type: :string },
+                              paid_at: { type: :date }
+                            },
+                            required: %w[amount paid_at]
+                          },
+                          relationships: {
+                            type: :object,
+                            properties: {
+                              creditor: { type: :object },
+                              debitor: { type: :object }
+                            },
+                            required: %w[creditor debitor]
+                          }                          
+                        },
+                        required: %w[id type attributes relationships]
+                      }
+                    }
+                 }
+          run_test!
+        end
+        response '401', "wrong token no data" do
+          let(:"Authorization") { "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c" }          
+          run_test!
+          after do |example|
+            example.metadata[:response][:examples] = { 'application/json' => JSON.parse(response.body, symbolize_names: true) }
+          end
+        end        
+      end
 
   #     post 'Creates a MoneyTransaction' do
   #       tags 'MoneyTransaction'
@@ -217,6 +225,6 @@ RSpec.describe 'Stand Alone API', type: :request do
   #         run_test!
   #       end
   #     end
-  #   end
-  # end
+     end
+  end
 end

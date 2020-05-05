@@ -15,10 +15,6 @@ class Api::V1::BaseController < ActionController::API
     render_api_error(e.message, 422)
   rescue JWT::VerificationError => e
     render_api_error(e.message, 422)
-  rescue InvalidTokenError => e
-    render_api_error(e.message, 422)
-  rescue MissingTokenError => e
-    render_api_error(e.message, 422)
   end
 
   def render_api_error(messages, code)
@@ -47,4 +43,5 @@ class Api::V1::BaseController < ActionController::API
 
     render json: data, status: code
   end  
+
 end

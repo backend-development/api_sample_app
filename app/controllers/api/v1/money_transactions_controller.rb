@@ -3,6 +3,7 @@
 class Api::V1::MoneyTransactionsController < Api::V1::BaseController
   before_action :authenticate_user!
 
+
   def index
     money_transactions = MoneyTransaction.all
     render json: MoneyTransactionSerializer.new(money_transactions).serializable_hash.to_json
