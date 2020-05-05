@@ -17,7 +17,7 @@ paths:
       tags:
       - User
       produces:
-      - abpplication/json
+      - application/json
       security:
       - Bearer: {}
       responses:
@@ -49,8 +49,11 @@ paths:
                   - id
                   - type
                   - attributes
-        '422':
+        '401':
           description: wrong token no data
+          examples:
+            application/json:
+              error: Signature verification raised
     post:
       summary: Creates a user
       tags:
@@ -312,8 +315,8 @@ paths:
             application/json:
               id: 507602454
               email: greef@bountyhunters.com
-              created_at: '2020-04-26T14:03:34.440Z'
-              updated_at: '2020-04-26T14:03:34.440Z'
+              created_at: '2020-05-05T05:56:40.208Z'
+              updated_at: '2020-05-05T05:56:40.208Z'
               name: greef
               jti: f4d270f8-3b36-404a-997d-023117046b73
         '401':
