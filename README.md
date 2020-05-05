@@ -5,6 +5,11 @@ you lent friends or that they lent you.
 
 technically, it is a rails app with some react added.
 
+it needs environment variables to run:
+
+export DEVISE_SECRET_KEY=super-super-secret-im-so-super-super-secret
+export SECRET_KEY_BASE=diffrente-super-super-secret-im-so-super-super-secret
+
 ## Based on:
 
 - https://github.com/rails/webpacker/blob/master/docs/css.md

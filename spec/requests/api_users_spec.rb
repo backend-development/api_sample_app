@@ -19,7 +19,7 @@ RSpec.describe 'Stand Alone API', type: :request do
     path '/api/v1/users' do
       get 'list all the users' do
         tags 'User'
-        produces 'abpplication/json'
+        produces 'application/json'
         security [Bearer: {}]
         response(200, 'successful') do
           let(:"Authorization") { "Bearer #{token_for(@user)}" }          
@@ -47,7 +47,7 @@ RSpec.describe 'Stand Alone API', type: :request do
                  }
           run_test!
         end
-        response '422', "wrong token no data" do
+        response '401', "wrong token no data" do
           let(:"Authorization") { "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c" }          
           run_test!
           after do |example|
