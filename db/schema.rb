@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_26_121829) do
+ActiveRecord::Schema.define(version: 2020_05_05_054351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,8 +18,7 @@ ActiveRecord::Schema.define(version: 2020_04_26_121829) do
   create_table "money_transactions", force: :cascade do |t|
     t.bigint "creditor_id"
     t.bigint "debitor_id"
-    t.string "amount"
-    t.string "decimal"
+    t.decimal "amount", precision: 10, scale: 2
     t.date "paid_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
