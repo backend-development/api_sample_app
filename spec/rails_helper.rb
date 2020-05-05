@@ -62,4 +62,14 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # config.include Devise::Test::ControllerHelpers, type: :controller
+end
+
+def token_for(user)
+  scope ||= Devise::Mapping.find_scope!(user)
+  token, _payload = Warden::JWTAuth::UserEncoder.new.call(
+    user, scope, nil
+  )
+  token
 end

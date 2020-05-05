@@ -1,50 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::UsersController < Api::V1::BaseController
-  around_action :handle_errors
-
-  def handle_errors
-    yield
-  rescue ActiveRecord::InvalidForeignKey => e
-    render_api_error(e.message, 422)
-  rescue ActiveRecord::RecordNotFound => e
-    render_api_error(e.message, 404)
-  rescue ActiveRecord::RecordInvalid => e
-    render_api_error(e.record.errors.full_messages, 422)
-    # rescue JWT::ExpiredSignature => e
-    #   render_api_error(e.message, 401)
-    # rescue InvalidTokenError => e
-    #   render_api_error(e.message, 422)
-    # rescue MissingTokenError => e
-    #   render_api_error(e.message, 422)
-  end
-
-  def render_api_error(messages, code)
-    data = { errors: [] }
-    if messages.respond_to? :each
-      messages.each do |field, errors|
-        if errors.respond_to? :each
-          errors.each do |error_message|
-            data[:errors].push(
-              status: code,
-              source: { pointer: "/user/#{field}" },
-              detail: error_message
-            )
-          end
-        else
-          data[:errors].push(
-            status: code,
-            source: { pointer: "/user/#{field}" },
-            detail: errors
-          )
-        end
-      end
-    else
-      data[:errors].push(code: code, details: messages)
-    end
-
-    render json: data, status: code
-  end
+  before_action :authenticate_user!
 
   def index
     users = User.all
@@ -66,7 +23,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     @user.password_confirmation = user_params[:password] if user_params[:password].present?
     Rails.logger.warn("creating #{@user.attributes}")
     if @user.save
-      render status: 201, json: UserSerializer.new(@user).serializable_hash.to_json
+      render status: :created, json: UserSerializer.new(@user).serializable_hash.to_json
     else
       render_api_error(@user.errors, 422)
       # render json: @user.errors, status: :unprocessable_entity
@@ -81,7 +38,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     else
       render_api_error(@user.errors, 422)
 
-      render json: @user.errors, status: 422
+      render json: @user.errors, status: :unprocessable_entity
     end
   end
 

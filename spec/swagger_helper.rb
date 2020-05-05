@@ -21,6 +21,14 @@ RSpec.configure do |config|
         title: 'API V1',
         version: 'v1',
         description: 'This is the first version of my API'
+      },
+      securityDefinitions: {
+        Bearer: {
+          description: 'JWT for this API',
+          type: :apiKey,
+          name: 'Authorization',
+          in: :header
+        }
       }
     }
   }
