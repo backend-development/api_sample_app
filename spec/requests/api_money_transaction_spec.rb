@@ -65,59 +65,68 @@ RSpec.describe 'Stand Alone API', type: :request do
         end        
       end
 
-  #     post 'Creates a MoneyTransaction' do
-  #       tags 'MoneyTransaction'
-  #       security [Bearer: {}]
-  #       consumes 'application/json'
-  #       produces 'application/json'
-  #       parameter name: :user,
-  #                 in: :body,
-  #                 schema: {
-  #                   type: :object,
-  #                   properties: {
-  #                     data: {
-  #                       type: :object,
-  #                       properties: {
-  #                         type: { type: :string },
-  #                         attributes: {
-  #                           type: :object,
-  #                           properties: {
-  #                             name: { type: :string },
-  #                             email: { type: :string },
-  #                             password: { type: :string }
-  #                           },
-  #                           required: %w[name email password]
-  #                         }
-  #                       }
-  #                     }
-  #                   }
-  #                 }
+    #   post 'Creates a MoneyTransaction' do
+    #     tags 'MoneyTransaction'
+    #     security [Bearer: {}]
+    #     consumes 'application/json'
+    #     produces 'application/json'
+    #     parameter name: :money_transaction,
+    #               in: :body,
+    #               schema: {
+    #                 type: :object,
+    #                 properties: {
+    #                   data: {
+    #                     type: :object,
+    #                     properties: {
+    #                       type: { type: :string },
+    #                       attributes: {
+    #                         type: :object,
+    #                         properties: {
+    #                           amount: { type: :number },
+    #                           paid_at: { type: :date },
+    #                           creditor_id: { type: :string },
+    #                           debitor_id: { type: :string }
+    #                         },
+    #                         required: %w[name email password]
+    #                       }
+    #                     }
+    #                   }
+    #                 }
+    #               }
 
 
-  #       response '201', 'user created' do
-  #         let(:"Authorization") { "Bearer #{token_for(@user)}" }          
-  #         let(:user) do
-  #           { data: { type: 'user', attributes: { name: 'Good', email: 'good@hier.com', password: 'asecret' } } }
-  #         end
-  #         run_test!
-  #         after do |example|
-  #           example.metadata[:response][:examples] = { 'application/json' => JSON.parse(response.body, symbolize_names: true) }
-  #         end
-  #       end
+    #     response '201', 'money_transaction created' do
+    #       let(:"Authorization") { "Bearer #{token_for(@user)}" }          
+    #       let(:money_transaction) do
+    #         u1 = User.first
+    #         u2 = User.second
+    #         { data: { type: 'money_transaction', attributes: { 
+    #             name: 'Good', 
+    #             email: 'good@hier.com', 
+    #             password: 'asecret' 
+              
+    #           } 
+    #         }
+    #       end
+    #       run_test!
+    #       after do |example|
+    #         example.metadata[:response][:examples] = { 'application/json' => JSON.parse(response.body, symbolize_names: true) }
+    #       end
+    #     end
 
-  #       response '422', "password can't be blank, name can't exist, e-mail can't exist" do
-  #         let(:"Authorization") { "Bearer #{token_for(@user)}" }          
-  #         let(:user) do
-  #           u = User.first
-  #           { data: { type: 'user', attributes: { name: u.name, email: u.email } } }
-  #         end
-  #         run_test!
-  #         after do |example|
-  #           example.metadata[:response][:examples] = { 'application/json' => JSON.parse(response.body, symbolize_names: true) }
-  #         end
-  #       end
-  #     end
-  #   end
+    #     response '422', "password can't be blank, name can't exist, e-mail can't exist" do
+    #       let(:"Authorization") { "Bearer #{token_for(@user)}" }          
+    #       let(:user) do
+    #         u = User.first
+    #         { data: { type: 'user', attributes: { name: u.name, email: u.email } } }
+    #       end
+    #       run_test!
+    #       after do |example|
+    #         example.metadata[:response][:examples] = { 'application/json' => JSON.parse(response.body, symbolize_names: true) }
+    #       end
+    #     end
+    #   end
+    # end
 
   #   path '/api/v1/money_transactions/{id}' do
   #     get 'show user' do
