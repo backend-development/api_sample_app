@@ -15,7 +15,7 @@ RSpec.describe(MoneyTransaction, type: :model) do
     mt = MoneyTransaction.create(debitor: @user1, creditor: @user2, amount: 120.1500000000001)
     expect(mt).to be_valid
     expect(mt.amount).to eq(120.15)
-  end  
+  end
 
   it('money transaction can only have positive amount') do
     mt = MoneyTransaction.create(debitor: @user1, creditor: @user2, amount: -2)

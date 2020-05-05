@@ -42,6 +42,5 @@ class Api::V1::BaseController < ActionController::API
     end
 
     render json: data, status: code
-  end  
-
+  end
 end

@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   end
 
   def json_request?
-    request.headers['HTTP_ACCEPT'] =~ %r{^\s*application/json}
+    request.headers['HTTP_ACCEPT'] =~ /^\s*application\/json/
   end
 
   protected

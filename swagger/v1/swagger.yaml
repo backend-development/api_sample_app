@@ -65,6 +65,75 @@ paths:
           examples:
             application/json:
               error: Signature verification raised
+    post:
+      summary: Creates a MoneyTransaction
+      tags:
+      - MoneyTransaction
+      security:
+      - Bearer: {}
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: money_transaction
+        in: body
+        schema:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                type:
+                  type: string
+                attributes:
+                  type: object
+                  properties:
+                    amount:
+                      type: number
+                    paid_at:
+                      type: date
+                    creditor_id:
+                      type: string
+                    debitor_id:
+                      type: string
+                  required:
+                  - amount
+                  - creditor
+                  - debitor
+      responses:
+        '201':
+          description: money_transaction created
+          examples:
+            application/json:
+              data:
+                id: '980190963'
+                type: money_transaction
+                attributes:
+                  amount: '10.5'
+                  paid_at: 
+                relationships:
+                  creditor:
+                    data:
+                      id: '507602454'
+                      type: user
+                  debitor:
+                    data:
+                      id: '986702025'
+                      type: user
+        '422':
+          description: amount can't be blank
+          examples:
+            application/json:
+              errors:
+              - status: 422
+                source:
+                  pointer: "/user/amount"
+                detail: can't be blank
+              - status: 422
+                source:
+                  pointer: "/user/amount"
+                detail: is not a number
   "/api/v1/users":
     get:
       summary: list all the users
@@ -369,8 +438,8 @@ paths:
             application/json:
               id: 507602454
               email: greef@bountyhunters.com
-              created_at: '2020-05-05T06:29:05.831Z'
-              updated_at: '2020-05-05T06:29:05.831Z'
+              created_at: '2020-05-05T19:47:49.771Z'
+              updated_at: '2020-05-05T19:47:49.771Z'
               name: greef
               jti: f4d270f8-3b36-404a-997d-023117046b73
         '401':

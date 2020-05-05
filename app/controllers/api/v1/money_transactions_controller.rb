@@ -3,7 +3,6 @@
 class Api::V1::MoneyTransactionsController < Api::V1::BaseController
   before_action :authenticate_user!
 
-
   def index
     money_transactions = MoneyTransaction.all
     render json: MoneyTransactionSerializer.new(money_transactions).serializable_hash.to_json
@@ -24,7 +23,7 @@ class Api::V1::MoneyTransactionsController < Api::V1::BaseController
     @money_transaction.password_confirmation = money_transaction_params[:password] if money_transaction_params[:password].present?
     Rails.logger.warn("creating #{@money_transaction.attributes}")
     if @money_transaction.save
-      render status: 201, json: MoneyTransactionSerializer.new(@money_transaction).serializable_hash.to_json
+      render status: :created, json: MoneyTransactionSerializer.new(@money_transaction).serializable_hash.to_json
     else
       render_api_error(@money_transaction.errors, 422)
       # render json: @money_transaction.errors, status: :unprocessable_entity
@@ -39,7 +38,7 @@ class Api::V1::MoneyTransactionsController < Api::V1::BaseController
     else
       render_api_error(@money_transaction.errors, 422)
 
-      render json: @money_transaction.errors, status: 422
+      render json: @money_transaction.errors, status: :unprocessable_entity
     end
   end
 
@@ -61,7 +60,7 @@ class Api::V1::MoneyTransactionsController < Api::V1::BaseController
   #           "attributes"=>{"name"=>"Good", "email"=>"good@hier.com", "password"=>"[FILTERED]"}}
   def money_transaction_params
     Rails.logger.warn(params)
-    p = params.require(:data).permit(:type, attributes: %i[name email password])
+    p = params.require(:data).permit(:type, attributes: %i[amount creditor_id debitor_id payed_at])
     p[:attributes] if p[:type] == 'money_transaction'
   end
 end

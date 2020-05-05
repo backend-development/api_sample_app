@@ -300,10 +300,10 @@ Devise.setup do |config|
   config.jwt do |jwt|
     jwt.secret = ENV['DEVISE_SECRET_KEY']
     jwt.request_formats = { user: %i[json html] }
-    # jwt.dispatch_requests = [
-    #   ['POST', %r{^/users/sign_in}],
-    #   ['GET', %r{^/$}]
-    # ]
+    jwt.dispatch_requests = [
+      ['POST', /^\/users\/sign_in/]
+      # ['GET', %r{^/$}]
+    ]
     # jwt.revocation_requests = [
     #   ['DELETE', %r{^/logout$}]
     # ]

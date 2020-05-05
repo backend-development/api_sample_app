@@ -24,7 +24,7 @@ RSpec.configure do |config|
       },
       securityDefinitions: {
         Bearer: {
-          description: "JWT for this API",
+          description: 'JWT for this API',
           type: :apiKey,
           name: 'Authorization',
           in: :header

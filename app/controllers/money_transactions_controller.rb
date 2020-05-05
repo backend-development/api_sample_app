@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MoneyTransactionsController < ApplicationController
-  #before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_action :set_money_transaction, only: %i[show edit update destroy]
 
   # GET /money_transactions

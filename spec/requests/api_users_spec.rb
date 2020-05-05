@@ -22,7 +22,7 @@ RSpec.describe 'Stand Alone API', type: :request do
         produces 'application/json'
         security [Bearer: {}]
         response(200, 'successful') do
-          let(:"Authorization") { "Bearer #{token_for(@user)}" }          
+          let(:Authorization) { "Bearer #{token_for(@user)}" }
           schema type: :object,
                  properties: {
                    data: {
@@ -47,13 +47,13 @@ RSpec.describe 'Stand Alone API', type: :request do
                  }
           run_test!
         end
-        response '401', "wrong token no data" do
-          let(:"Authorization") { "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c" }          
+        response '401', 'wrong token no data' do
+          let(:Authorization) { 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c' }
           run_test!
           after do |example|
             example.metadata[:response][:examples] = { 'application/json' => JSON.parse(response.body, symbolize_names: true) }
           end
-        end        
+        end
       end
 
       # echtes json:api
@@ -107,7 +107,7 @@ RSpec.describe 'Stand Alone API', type: :request do
         #           }
 
         response '201', 'user created' do
-          let(:"Authorization") { "Bearer #{token_for(@user)}" }          
+          let(:Authorization) { "Bearer #{token_for(@user)}" }
           let(:user) do
             { data: { type: 'user', attributes: { name: 'Good', email: 'good@hier.com', password: 'asecret' } } }
           end
@@ -118,7 +118,7 @@ RSpec.describe 'Stand Alone API', type: :request do
         end
 
         response '422', "password can't be blank, name can't exist, e-mail can't exist" do
-          let(:"Authorization") { "Bearer #{token_for(@user)}" }          
+          let(:Authorization) { "Bearer #{token_for(@user)}" }
           let(:user) do
             u = User.first
             { data: { type: 'user', attributes: { name: u.name, email: u.email } } }
@@ -140,7 +140,7 @@ RSpec.describe 'Stand Alone API', type: :request do
         parameter name: 'id', in: :path, type: :string
 
         response 200, 'successful' do
-          let(:"Authorization") { "Bearer #{token_for(@user)}" }          
+          let(:Authorization) { "Bearer #{token_for(@user)}" }
 
           schema type: :object,
                  properties: {
@@ -224,7 +224,7 @@ RSpec.describe 'Stand Alone API', type: :request do
         #           }
 
         response '200', 'user updated: Raider heisst jetzt Twix' do
-          let(:"Authorization") { "Bearer #{token_for(@user)}" }          
+          let(:Authorization) { "Bearer #{token_for(@user)}" }
 
           let(:id) do
             u = User.create!(name: 'Raider', email: 'raider@skywalker.net', password: '1234567', password_confirmation: '1234567')
@@ -248,7 +248,7 @@ RSpec.describe 'Stand Alone API', type: :request do
         parameter name: 'id', in: :path, type: :string
 
         response '204', 'user updated' do
-          let(:"Authorization") { "Bearer #{token_for(@user)}" }          
+          let(:Authorization) { "Bearer #{token_for(@user)}" }
 
           let(:id) do
             u = User.create!(name: 'Raider', email: 'raider@skywalker.net', password: '1234567', password_confirmation: '1234567')
