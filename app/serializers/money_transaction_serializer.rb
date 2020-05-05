@@ -2,7 +2,10 @@
 
 class MoneyTransactionSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :amount, :paid_at
+  attributes :amount
+  attribute :paid_at, if: Proc.new { |record|
+    record.paid_at.present?
+  }
   belongs_to :creditor, record_type: :user, serializer: UserSerializer
   belongs_to :debitor, record_type: :user, serializer: UserSerializer
 end

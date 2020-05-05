@@ -37,9 +37,9 @@ RSpec.describe 'Stand Alone API', type: :request do
                            type: :object,
                            properties: {
                              amount: { type: :string },
-                             paid_at: { type: :date }
+                             paid_at: { type: :string }
                            },
-                           required: %w[amount paid_at]
+                           required: %w[amount]
                          },
                          relationships: {
                            type: :object,
@@ -137,46 +137,54 @@ RSpec.describe 'Stand Alone API', type: :request do
           end
         end
       end
-      #  end
+    end
 
-      #   path '/api/v1/money_transactions/{id}' do
-      #     get 'show user' do
-      #       tags 'MoneyTransaction'
-      #       security [Bearer: {}]
+        path '/api/v1/money_transactions/{id}' do
+          get 'show user' do
+            tags 'MoneyTransaction'
+            security [Bearer: {}]
 
-      #       produces 'application/json'
-      #       parameter name: 'id', in: :path, type: :string
+            produces 'application/json'
+            parameter name: 'id', in: :path, type: :string
 
-      #       response 200, 'successful' do
-      #         let(:"Authorization") { "Bearer #{token_for(@user)}" }
+            response 200, 'successful' do
+              let(:"Authorization") { "Bearer #{token_for(@user)}" }
 
-      #         schema type: :object,
-      #                properties: {
-      #                  data: {
-      #                    type: :object,
-      #                    properties: {
-      #                      id: { type: :string },
-      #                      type: { type: :string },
-      #                      attributes: {
-      #                        type: :object,
-      #                        properties: {
-      #                          name: { type: :string },
-      #                          email: { type: :string }
-      #                        },
-      #                        required: %w[name email]
-      #                      }
-      #                    },
-      #                    required: %w[id type attributes]
-      #                  }
-      #                }
-      #         let(:id) do
-      #           u = User.create!(name: 'Luke', email: 'luke@skywalker.net', password: '1234567', password_confirmation: '1234567')
-      #           u.id
-      #         end
+              schema type: :object,
+                      properties: {
+                        data: {
+                          type: :object,
+                          properties: {
+                            id: { type: :string },
+                            type: { type: :string },
+                            attributes: {
+                              type: :object,
+                              properties: {
+                                amount: { type: :string },
+                                paid_at: {  type: :string, format: :date }
+                              },
+                              required: %w[amount]
+                            },
+                            relationships: {
+                              type: :object,
+                              properties: {
+                                creditor: { type: :object },
+                                debitor: { type: :object }
+                              },
+                              required: %w[creditor debitor]
+                            }
+                          },
+                          required: %w[id type attributes relationships]
+                        }
+                      }
+              let(:id) do
+                m = money_transactions(:one)
+                m.id
+              end
 
-      #         run_test!
-      #       end
-      #     end
+              run_test!
+            end
+          end
       #     patch 'Updates a MoneyTransactions data' do
       #       tags 'MoneyTransaction'
       #       security [Bearer: {}]
@@ -244,7 +252,7 @@ RSpec.describe 'Stand Alone API', type: :request do
       #         end
       #         run_test!
       #       end
-      #     end
+      #end
     end
   end
 end

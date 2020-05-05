@@ -41,10 +41,9 @@ paths:
                         amount:
                           type: string
                         paid_at:
-                          type: date
+                          type: string
                       required:
                       - amount
-                      - paid_at
                     relationships:
                       type: object
                       properties:
@@ -111,7 +110,6 @@ paths:
                 type: money_transaction
                 attributes:
                   amount: '10.5'
-                  paid_at: 
                 relationships:
                   creditor:
                     data:
@@ -134,6 +132,58 @@ paths:
                 source:
                   pointer: "/user/amount"
                 detail: is not a number
+  "/api/v1/money_transactions/{id}":
+    get:
+      summary: show user
+      tags:
+      - MoneyTransaction
+      security:
+      - Bearer: {}
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        type: string
+        required: true
+      responses:
+        '200':
+          description: successful
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  type:
+                    type: string
+                  attributes:
+                    type: object
+                    properties:
+                      amount:
+                        type: string
+                      paid_at:
+                        type: string
+                        format: date
+                    required:
+                    - amount
+                  relationships:
+                    type: object
+                    properties:
+                      creditor:
+                        type: object
+                      debitor:
+                        type: object
+                    required:
+                    - creditor
+                    - debitor
+                required:
+                - id
+                - type
+                - attributes
+                - relationships
   "/api/v1/users":
     get:
       summary: list all the users
@@ -438,8 +488,8 @@ paths:
             application/json:
               id: 507602454
               email: greef@bountyhunters.com
-              created_at: '2020-05-05T19:47:49.771Z'
-              updated_at: '2020-05-05T19:47:49.771Z'
+              created_at: '2020-05-05T20:16:03.530Z'
+              updated_at: '2020-05-05T20:16:03.530Z'
               name: greef
               jti: f4d270f8-3b36-404a-997d-023117046b73
         '401':
