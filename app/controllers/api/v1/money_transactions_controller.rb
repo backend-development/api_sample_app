@@ -33,9 +33,14 @@ class Api::V1::MoneyTransactionsController < Api::V1::BaseController
   # PATCH/PUT /money_transactions/1
   def update
     set_money_transaction
+    Rails.logger.warn("update money_transaction with #{money_transaction_params}")
     if @money_transaction.update(money_transaction_params)
+      Rails.logger.warn("update money_transaction with #{money_transaction_params} OK")
+
       render status: :ok, json: MoneyTransactionSerializer.new(@money_transaction).serializable_hash.to_json
     else
+      Rails.logger.warn("update money_transaction with #{money_transaction_params} NOT OK")
+
       render_api_error(@money_transaction.errors, 422)
 
       render json: @money_transaction.errors, status: :unprocessable_entity
@@ -60,7 +65,7 @@ class Api::V1::MoneyTransactionsController < Api::V1::BaseController
   #           "attributes"=>{"name"=>"Good", "email"=>"good@hier.com", "password"=>"[FILTERED]"}}
   def money_transaction_params
     Rails.logger.warn(params)
-    p = params.require(:data).permit(:type, attributes: %i[amount creditor_id debitor_id payed_at])
+    p = params.require(:data).permit(:type, attributes: %i[amount creditor_id debitor_id paid_at])
     p[:attributes] if p[:type] == 'money_transaction'
   end
 end
