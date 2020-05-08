@@ -23,7 +23,7 @@ RSpec.describe 'Stand Alone API', type: :request do
                        type: :object,
                        properties: {
                          id: { type: :string },
-                         type: { type: :string },
+                         type: { type: :string, enum: ['user'] },
                          attributes: {
                            type: :object,
                            properties: {
@@ -66,7 +66,7 @@ RSpec.describe 'Stand Alone API', type: :request do
                       data: {
                         type: :object,
                         properties: {
-                          type: { type: :string },
+                          type: { type: :string, enum: ['user'] },
                           attributes: {
                             type: :object,
                             properties: {
@@ -140,7 +140,7 @@ RSpec.describe 'Stand Alone API', type: :request do
                      type: :object,
                      properties: {
                        id: { type: :string },
-                       type: { type: :string },
+                       type: { type: :string, enum: ['user'] },
                        attributes: {
                          type: :object,
                          properties: {
@@ -176,7 +176,7 @@ RSpec.describe 'Stand Alone API', type: :request do
                       data: {
                         type: :object,
                         properties: {
-                          type: { type: :string },
+                          type: { type: :string, enum: ['user'] },
                           id: { type: :string },
                           attributes: {
                             type: :object,
@@ -200,7 +200,7 @@ RSpec.describe 'Stand Alone API', type: :request do
         #               data: {
         #                 type: :object,
         #                 properties: {
-        #                   type: { type: :string },
+        #                   type: { type: :string, enum: ['user'] },
         #                   attributes: {
         #                     type: :object,
         #                     properties: {
