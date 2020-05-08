@@ -24,7 +24,7 @@ RSpec.describe 'Stand Alone API', type: :request do
                        type: :object,
                        properties: {
                          id: { type: :string },
-                         type: { type: :string },
+                         type: { type: :string, enum: ['money_transaction'] },
                          attributes: {
                            type: :object,
                            properties: {
@@ -70,7 +70,7 @@ RSpec.describe 'Stand Alone API', type: :request do
                       data: {
                         type: :object,
                         properties: {
-                          type: { type: :string },
+                          type: { type: :string, enum: ['money_transaction'] },
                           attributes: {
                             type: :object,
                             properties: {
@@ -148,7 +148,7 @@ RSpec.describe 'Stand Alone API', type: :request do
                      type: :object,
                      properties: {
                        id: { type: :string },
-                       type: { type: :string },
+                       type: { type: :string, enum: ['money_transaction'] },
                        attributes: {
                          type: :object,
                          properties: {
@@ -192,7 +192,7 @@ RSpec.describe 'Stand Alone API', type: :request do
                       data: {
                         type: :object,
                         properties: {
-                          type: { type: :string },
+                          type: { type: :string, enum: ['money_transaction'] },
                           id: { type: :string },
                           attributes: {
                             type: :object,

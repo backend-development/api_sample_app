@@ -35,6 +35,8 @@ paths:
                       type: string
                     type:
                       type: string
+                      enum:
+                      - money_transaction
                     attributes:
                       type: object
                       properties:
@@ -85,6 +87,8 @@ paths:
               properties:
                 type:
                   type: string
+                  enum:
+                  - money_transaction
                 attributes:
                   type: object
                   properties:
@@ -159,6 +163,8 @@ paths:
                     type: string
                   type:
                     type: string
+                    enum:
+                    - money_transaction
                   attributes:
                     type: object
                     properties:
@@ -209,6 +215,8 @@ paths:
               properties:
                 type:
                   type: string
+                  enum:
+                  - money_transaction
                 id:
                   type: string
                 attributes:
@@ -285,6 +293,8 @@ paths:
                       type: string
                     type:
                       type: string
+                      enum:
+                      - user
                     attributes:
                       type: object
                       properties:
@@ -301,15 +311,10 @@ paths:
                   - attributes
         '401':
           description: wrong token no data
-          examples:
-            application/json:
-              error: Signature verification raised
     post:
       summary: Creates a user
       tags:
       - User
-      security:
-      - Bearer: {}
       consumes:
       - application/json
       produces:
@@ -325,6 +330,8 @@ paths:
               properties:
                 type:
                   type: string
+                  enum:
+                  - user
                 attributes:
                   type: object
                   properties:
@@ -393,6 +400,8 @@ paths:
                     type: string
                   type:
                     type: string
+                    enum:
+                    - user
                   attributes:
                     type: object
                     properties:
@@ -432,6 +441,8 @@ paths:
               properties:
                 type:
                   type: string
+                  enum:
+                  - user
                 id:
                   type: string
                 attributes:
