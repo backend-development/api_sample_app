@@ -311,15 +311,10 @@ paths:
                   - attributes
         '401':
           description: wrong token no data
-          examples:
-            application/json:
-              error: Signature verification raised
     post:
       summary: Creates a user
       tags:
       - User
-      security:
-      - Bearer: {}
       consumes:
       - application/json
       produces:

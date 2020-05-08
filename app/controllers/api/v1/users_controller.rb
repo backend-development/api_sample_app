@@ -2,6 +2,7 @@
 
 class Api::V1::UsersController < Api::V1::BaseController
   before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: [:create]
 
   def index
     users = User.all

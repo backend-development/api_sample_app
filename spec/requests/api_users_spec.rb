@@ -55,7 +55,6 @@ RSpec.describe 'Stand Alone API', type: :request do
 
       post 'Creates a user' do
         tags 'User'
-        security [Bearer: {}]
         consumes 'application/json'
         produces 'application/json'
         parameter name: :user,
