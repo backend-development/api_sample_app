@@ -18,6 +18,7 @@
       <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
           <div class="mdl-layout-spacer"></div>
+
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
                       mdl-textfield--floating-label mdl-textfield--align-right">
             <label class="mdl-button mdl-js-button mdl-button--icon"
@@ -33,15 +34,24 @@
       </header>
       <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">IOU - i owe you</span>
+        
         <nav class="mdl-navigation">
             <%= link_to "Home", root_path, class: 'mdl-navigation__link' %>
-            <%= link_to "Users", users_path, class: 'mdl-navigation__link' %>
-            <%= link_to "Transactions", money_transactions_path, class: 'mdl-navigation__link' %>
+            <% if user_signed_in? %>
+              <%= link_to "Users", users_path, class: 'mdl-navigation__link' %>
+              <%= link_to "Transactions", money_transactions_path, class: 'mdl-navigation__link' %>
+              <%= link_to "Logout", logout_path, class: 'mdl-navigation__link' %>
+            <% else %>
+              <%= link_to "Register", new_user_registration_path, class: 'mdl-navigation__link' %>
+              <%= link_to "Login", new_user_session_path, class: 'mdl-navigation__link' %>
+            <% end %>
             <%= link_to "API Doc", rswag_ui_path, class: 'mdl-navigation__link' %>
+            <%= link_to "Gesendete Mail", '/letter_opener', class: 'mdl-navigation__link' %>
         </nav>
       </div>
       <main class="mdl-layout__content constrain">
       <p id="notice"><%= notice %></p>  
+      <p class="alert"><%= alert %></p>      
       <%= yield %>
       </main>
       <footer class="mdl-mini-footer">

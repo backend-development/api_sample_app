@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'boot'
 
 require 'rails/all'
@@ -18,9 +20,23 @@ module Iou
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-         origins '*'
-         resource '*', :headers => :any, :methods => [:get, :patch, :put, :delete, :post, :options]
-       end
+        origins '*'
+        resource '*',
+                 headers: %w[Authorization],
+                 methods: :any,
+                 expose: %w[Authorization],
+                 max_age: 600
+      end
     end
+
+    # https://github.com/waiting-for-dev/devise-jwt#user-content-session-storage-caveat
+    # also disables flash messages
+    # config.session_store :disabled
+  end
+end
+
+if Rails.env.development?
+  RSpec.configure do |config|
+    config.swagger_dry_run = false
   end
 end

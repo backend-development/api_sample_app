@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.id money_transaction.id
 json.creditor_id money_transaction.creditor_id
 json.debitor_id money_transaction.debitor_id
