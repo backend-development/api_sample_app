@@ -8,6 +8,7 @@ ruby '2.7.2'
 gem 'rails', '~> 6.0.3'
 gem 'sassc-rails'
 
+gem 'blueprinter'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'

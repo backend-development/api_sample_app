@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get 'static/privacy'
 
   namespace :api do
-    namespace :v1 do
+    namespace :v0 do
       resources :users, only: %i[index show create update destroy]
       resources :money_transactions, only: %i[index show create update destroy]
     end

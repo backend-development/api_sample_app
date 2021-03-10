@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V1::BaseController < ActionController::API
+class Api::V0::BaseController < ActionController::API
   around_action :handle_errors
 
   def handle_errors

@@ -1,16 +1,15 @@
 # frozen_string_literal: true
 
-class Api::V1::MoneyTransactionsController < Api::V1::BaseController
+class Api::V0::MoneyTransactionsController < Api::V1::BaseController
   before_action :authenticate_user!
 
   def index
-    money_transactions = MoneyTransaction.all
-    render json: MoneyTransactionSerializer.new(money_transactions).serializable_hash.to_json
+    render json: MoneyTransactionBlueprint.render(MoneyTransaction.all)
   end
 
   def show
-    money_transaction = MoneyTransaction.find(params[:id])
-    render json: MoneyTransactionSerializer.new(money_transaction).serializable_hash.to_json
+    user = MoneyTransaction.find(params[:id])
+    render json: MoneyTransactionBlueprint.render(user)
   end
 
   # POST /money_transactions
