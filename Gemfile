@@ -3,16 +3,15 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.3'
+ruby '2.7.2'
 
-gem 'rails', '~> 6.0.1'
+gem 'rails', '~> 6.0.3'
 gem 'sassc-rails'
 
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 gem 'devise-jwt'
-gem 'fast_jsonapi', '~> 1.6.0', git: 'https://github.com/fast-jsonapi/fast_jsonapi'
 gem 'jbuilder', '~> 2.7'
 gem 'letter_opener'
 gem 'letter_opener_web', '~> 1.0'

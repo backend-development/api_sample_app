@@ -28,6 +28,10 @@ module Iou
                  max_age: 600
       end
     end
+
+    # https://github.com/waiting-for-dev/devise-jwt#user-content-session-storage-caveat
+    # also disables flash messages
+    # config.session_store :disabled
   end
 end
 
