@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V0::UsersController < Api::V1::BaseController
+class Api::V0::UsersController < Api::V0::BaseController
   before_action :authenticate_user!
   skip_before_action :authenticate_user!, only: [:create]
 

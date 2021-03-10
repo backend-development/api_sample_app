@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V0::MoneyTransactionsController < Api::V1::BaseController
+class Api::V0::MoneyTransactionsController < Api::V0::BaseController
   before_action :authenticate_user!
 
   def index

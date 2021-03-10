@@ -15,12 +15,12 @@ RSpec.configure do |config|
   # document below. You can override this behavior by adding a swagger_doc tag to the
   # the root example_group in your specs, e.g. describe '...', swagger_doc: 'v2/swagger.json'
   config.swagger_docs = {
-    'v1/swagger.yaml' => {
+    'v0/swagger.yaml' => {
       swagger: '2.0',
       info: {
-        title: 'API V1',
-        version: 'v1',
-        description: 'This is the first version of my API'
+        title: 'API V0',
+        version: 'v0',
+        description: 'This is the basic version of my API'
       },
       securityDefinitions: {
         Bearer: {

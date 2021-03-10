@@ -1,9 +1,9 @@
 ---
 swagger: '2.0'
 info:
-  title: API V1
-  version: v1
-  description: This is the first version of my API
+  title: API V0
+  version: v0
+  description: This is the basic version of my API
 securityDefinitions:
   Bearer:
     description: JWT for this API
@@ -239,8 +239,8 @@ paths:
             application/json:
               id: 507602454
               email: greef@bountyhunters.com
-              created_at: '2021-03-10T09:33:05.619Z'
-              updated_at: '2021-03-10T09:33:05.619Z'
+              created_at: '2021-03-10T09:38:42.332Z'
+              updated_at: '2021-03-10T09:38:42.332Z'
               name: greef
               jti: f4d270f8-3b36-404a-997d-023117046b73
         '401':
